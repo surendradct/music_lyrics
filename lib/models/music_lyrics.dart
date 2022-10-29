@@ -73,7 +73,7 @@ class Body {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (lyrics != null) {
       data['lyrics'] = lyrics!.toJson();
     }
@@ -110,7 +110,7 @@ class Lyrics {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['lyrics_id'] = lyricsId;
     data['explicit'] = explicit;
     data['lyrics_body'] = lyricsBody;

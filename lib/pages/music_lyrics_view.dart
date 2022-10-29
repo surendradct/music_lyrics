@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+// ignore: library_prefixes
 import 'package:music_lyrics/models/music_list.dart'as ListTrack;
 import 'package:music_lyrics/networking/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -95,9 +96,11 @@ class _GetMusicLyricsState extends State<GetMusicLyrics> {
 class TrackDetails extends StatefulWidget {
   final MusicDetails musicDetails;
   final int trackId;
+   // ignore: use_key_in_widget_constructors
    const TrackDetails({ required this.musicDetails,  required this.trackId});
 
   @override
+  // ignore: library_private_types_in_public_api
   _TrackDetailsState createState() => _TrackDetailsState();
 }
 
@@ -173,6 +176,7 @@ class _TrackDetailsState extends State<TrackDetails> {
   }
 }
 
+// ignore: must_be_immutable
 class InfoTile extends StatelessWidget {
    String? heading;
    String body;
@@ -188,21 +192,23 @@ class InfoTile extends StatelessWidget {
         ),
         Text(
           heading!,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         Text(
           body,
-          style: const TextStyle(fontSize: 20.0),
+          style: const TextStyle(fontSize: 15),
         ),
       ],
     );
   }
 }
 
+// ignore: must_be_immutable
 class LyricAppBar extends StatefulWidget {
    ListTrack.Track? track;
   LyricAppBar({Key? key,  this.track}) : super(key: key);
   @override
+  // ignore: library_private_types_in_public_api
   _LyricAppBarState createState() => _LyricAppBarState();
 }
 
@@ -236,7 +242,7 @@ class _LyricAppBarState extends State<LyricAppBar> {
           Navigator.pop(context);
         },
       ),
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.red,
       elevation: 5.0,
       centerTitle: true,
       title: const Text(

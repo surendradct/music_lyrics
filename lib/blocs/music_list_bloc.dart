@@ -31,6 +31,7 @@ class MusicListBloc{
       musicListSink.add(Response.completed(musicList));
     } catch (e) {
       musicListSink.add(Response.error(e.toString()));
+      // ignore: avoid_print
       print(e);
     }
   }

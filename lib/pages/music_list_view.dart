@@ -4,18 +4,18 @@ import 'package:music_lyrics/blocs/connectivity_bloc.dart';
 import 'package:music_lyrics/blocs/music_list_bloc.dart';
 import 'package:music_lyrics/models/music_list.dart';
 import 'package:music_lyrics/networking/response.dart';
-import 'package:music_lyrics/views/bookmark_view.dart';
+import 'package:music_lyrics/pages/bookmark_view.dart';
 
 import 'music_lyrics_view.dart';
 
-class GetMusicList extends StatefulWidget {
-  const GetMusicList({Key? key}) : super(key: key);
+class OpenMusicList extends StatefulWidget {
+  const OpenMusicList({Key? key}) : super(key: key);
 
   @override
-  State<GetMusicList> createState() => _GetMusicListState();
+  State<OpenMusicList> createState() => _OpenMusicListState();
 }
 
-class _GetMusicListState extends State<GetMusicList> {
+class _OpenMusicListState extends State<OpenMusicList> {
   final ConnectivityBloc _netBloc = ConnectivityBloc();
   final MusicListBloc _bloc = MusicListBloc();
   @override
@@ -26,8 +26,8 @@ class _GetMusicListState extends State<GetMusicList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         elevation: 5.0,
         title: const Text(
@@ -44,8 +44,9 @@ class _GetMusicListState extends State<GetMusicList> {
                     builder: (context) => const BookmarkView(),
                   ));
             },
-            icon: const Icon( 
-              Icons.bookmark, color: Colors.black,
+            icon: const Icon(
+              Icons.bookmark,
+              color: Colors.black,
             ),
           ),
         ],
@@ -66,14 +67,9 @@ class _GetMusicListState extends State<GetMusicList> {
                     if (snapshot.hasData) {
                       switch (snapshot.data.status) {
                         case Status.LOADING:
-                          return Loading(
-                            loadingMessage: snapshot.data.message);
-                          break;
+                          return Loading(loadingMessage: snapshot.data.message);
                         case Status.COMPLETED:
-                          return TrackList(
-                            musicList: snapshot.data.data
-                            );
-                          break;
+                          return TrackList(musicList: snapshot.data.data);
                         case Status.ERROR:
                           break;
                       }
@@ -82,12 +78,13 @@ class _GetMusicListState extends State<GetMusicList> {
                   },
                 ),
               );
-              break;
             case ConnectivityResult.none:
               return const Center(
-                child: Text('No Internet'),
+                child: Text(
+                  'No Internet Connection',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
               );
-              break;
           }
           return Container();
         },
@@ -109,6 +106,7 @@ class TrackList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_unnecessary_containers
     return Container(
       child: ListView.builder(
         itemBuilder: (context, index) {
@@ -134,7 +132,7 @@ class Loading extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children:<Widget> [
+        children: <Widget>[
           Text(
             loadingMessage,
             textAlign: TextAlign.center,
@@ -157,7 +155,7 @@ class TrackTile extends StatelessWidget {
 
   const TrackTile({
     Key? key,
-     required this.track,
+    required this.track,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -171,23 +169,30 @@ class TrackTile extends StatelessWidget {
                       trackCurrent: track,
                     )));
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
-        child: Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: Colors.black26, width: 1.0),
-            ),
+      child: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: Colors.grey, width: 1.0),
           ),
-          child: ListTile(
-            leading: const Icon(Icons.library_music),
-            title: Text(track.trackName),
-              subtitle: Text(track.albumName),
-              trailing: Container(
-                width: 110,
-                child: Text(track.artistName, softWrap: true,),
-                
-              ),
+        ),
+        child: ListTile(
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          leading: const Icon(Icons.library_music, size: 20),
+          title: Text(track.trackName,
+              style:
+                  const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+          subtitle: Text(
+            track.albumName,
+            style: const TextStyle(fontSize: 12, ),
+          ),
+          trailing: SizedBox(
+            width: 100,
+            child: Text(
+              track.artistName,
+              softWrap: true,
+              style: const TextStyle(fontSize: 13),
+            ),
           ),
         ),
       ),

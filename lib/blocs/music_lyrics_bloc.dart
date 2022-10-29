@@ -1,6 +1,8 @@
 
 
 
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 
 
@@ -13,6 +15,7 @@ class MusicLyricsBloc {
   MusicLyricsRepository? _musicLyricsRepository;
   StreamController? _musicLyricsController;
   int? trackId;
+  
   StreamSink<dynamic>get musicLyricsSink =>
       _musicLyricsController!.sink;
 
@@ -32,12 +35,13 @@ class MusicLyricsBloc {
           await _musicLyricsRepository!.fetchMusicDetailsData();
       musicLyricsSink.add(Response.completed(musicLyrics));
     } catch (e) {
-      musicLyricsSink.add(Response.error(e.toString()));
       print(e);
     }
   }
 
   dispose() {
-    _musicLyricsController?.close();
+    _musicLyricsController!.close();
+    
+    
   }
 }

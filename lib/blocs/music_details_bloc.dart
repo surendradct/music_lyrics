@@ -4,10 +4,13 @@ import '../models/music_details.dart';
 import '../networking/response.dart';
 import '../repository/music_details_repository.dart';
 
+
+
 class MusicDetailsBloc {
   MusicDetailsRepository? _musicDetailsRepository;
   StreamController? _musicDetailsController;
   int? trackId;
+  
   StreamSink<dynamic> get musicDetailsSink =>
       _musicDetailsController!.sink;
 
@@ -27,12 +30,13 @@ class MusicDetailsBloc {
           await _musicDetailsRepository!.fetchMusicDetailsData();
       musicDetailsSink.add(Response.completed(musicDetails));
     } catch (e) {
-      musicDetailsSink.add(Response.error(e.toString()));
+      // ignore: avoid_print
       print(e);
     }
   }
 
   dispose() {
     _musicDetailsController!.close();
+    
   }
 }

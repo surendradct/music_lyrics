@@ -10,8 +10,8 @@ class MusicDetails {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.message != null) {
-      data['message'] = this.message!.toJson();
+    if (message != null) {
+      data['message'] = message!.toJson();
     }
     return data;
   }
@@ -174,7 +174,7 @@ class Track {
 }
 
 class PrimaryGenres {
-  List<Null>? musicGenreList;
+  List<void>? musicGenreList;
 
   PrimaryGenres({required this.musicGenreList});
 

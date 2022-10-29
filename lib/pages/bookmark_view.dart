@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:music_lyrics/views/music_list_view.dart';
+import 'package:music_lyrics/pages/music_list_view.dart';
+// ignore: library_prefixes
 import 'package:music_lyrics/models/music_list.dart' as ListTrack;
 
 
@@ -38,7 +39,7 @@ List<String>? trackIdList;
     sharedPref();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        // backgroundColor: const Color.fromARGB(255, 243, 3, 3),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -56,6 +57,7 @@ List<String>? trackIdList;
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
+      // ignore: prefer_is_empty
       body: (trackIdList == null || trackIdList?.length == 0)
           ? const Center(
               child: Text(
@@ -64,7 +66,9 @@ List<String>? trackIdList;
               ),
             )
           : listViewBuilder(),
+          
     );
+
   }
 
   listViewBuilder() {
